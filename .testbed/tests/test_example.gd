@@ -16,3 +16,6 @@ func test_plugin_manifest_structure():
 	var config = ConfigFile.new()
 	assert_eq(config.load(manifest_path), OK, "plugin.cfg should load")
 	assert_true(config.get_value("plugin", "name", "") != "", "plugin name should be set")
+
+	var description = str(config.get_value("plugin", "description", ""))
+	assert_true(description.contains("not official v1 gameplay input"), "plugin description should reflect future/deprioritized truth")

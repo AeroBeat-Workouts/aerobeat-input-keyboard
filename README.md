@@ -1,16 +1,26 @@
-# AeroBeat Input Driver - Keyboards
+# AeroBeat Input Driver - Keyboard
 
-This is the official Input driver for AeroBeat's Keyboard support.
+🚧 **Future / Deprioritized Support**
 
-Input Drivers bridge hardware (Webcams, VR Controllers, Smart Watches) to the AeroBeat Core contracts.
+This repo preserves AeroBeat's keyboard input driver as a **future support** path.
+For the locked AeroBeat v1 product slice, **official gameplay input is camera-first**, so this package should not be read as current official gameplay support.
+
+Today this repo is mainly useful for:
+
+- debug and tooling experiments
+- future keyboard-input exploration
+- maintaining the package boundary for later work without implying v1 parity
+
+Input Drivers bridge hardware to shared AeroBeat input contracts, but this specific driver is intentionally outside the current official gameplay path.
 
 ## 📋 Repository Details
 
-*   **Type:** Input Driver
-*   **License:** **Mozilla Public License 2.0 (MPL 2.0)**
-*   **Dependencies:**
-    *   `aerobeat-core` (Required)
-    *   `aerobeat-vendor-*` (Allowed)
+- **Type:** Input Driver
+- **Current Product Status:** Future / deprioritized keyboard support
+- **License:** **Mozilla Public License 2.0 (MPL 2.0)**
+- **Dependencies:**
+  - `aerobeat-core` (current transition-era workbench foundation)
+  - `aerobeat-vendor-*` (allowed)
 
 ## GodotEnv development flow
 
@@ -33,7 +43,7 @@ cd .testbed
 godotenv addons install
 ```
 
-That installs the pinned `aerobeat-core` foundation plus GUT into `.testbed/addons/`.
+That restores this repo's current dev/test manifest into `.testbed/addons/`. The manifest still reflects the lightweight workbench needed to keep this future/debug package testable; it should not be mistaken for official v1 gameplay scope.
 
 ### Open the workbench
 
@@ -43,7 +53,7 @@ From the repo root:
 godot --editor --path .testbed
 ```
 
-Use this `.testbed/` project as the canonical direct-development and bugfinding surface for input-driver work.
+Use this `.testbed/` project as the canonical direct-development and bugfinding surface for future keyboard-driver work.
 
 ### Import smoke check
 
@@ -67,6 +77,10 @@ godot --headless --path .testbed --script addons/gut/gut_cmdln.gd \
 ### Validation notes
 
 - `.testbed/addons.jsonc` is the committed dev/test dependency contract.
-- The manifest pins `aerobeat-core` to `v0.1.0` and GUT to `main`.
-- Repo-local unit tests live under `.testbed/tests/`; this repo's current package payload is rooted at `/`, so the workbench does not ship a `.testbed/src` bridge for this subset.
+- The current workbench still pins the transition-era `aerobeat-core` package key at `v0.1.0` alongside GUT `main`; this is acceptable for the present light truth pass because the repo is future/deprioritized rather than an active v1 gameplay path.
+- Repo-local unit tests live under `.testbed/tests/`.
 - The current package shape is consumed from the repo root (`subfolder: "/"`) for downstream installs.
+
+## Scope note
+
+If AeroBeat resumes official non-camera gameplay expansion later, this repo can be upgraded then. Until that happens, keep keyboard support framed as future/debug/tooling work rather than current v1 gameplay input.

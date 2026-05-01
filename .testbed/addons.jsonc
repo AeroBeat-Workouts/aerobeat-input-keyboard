@@ -1,13 +1,14 @@
 {
   "$schema": "https://chickensoft.games/schemas/addons.schema.json",
   "addons": {
-    // Batch 1 pins the foundational core contract for input-driver work.
+    // Future/deprioritized keyboard-driver workbench dependency.
+    // This repo is kept testable for debug/tooling/later exploration, not as an official v1 gameplay path.
     "aerobeat-core": {
       "url": "git@github.com:AeroBeat-Workouts/aerobeat-core.git",
       "checkout": "v0.1.0",
       "subfolder": "/"
     },
-    // GUT drives the repo-local test suite inside the hidden testbed/workbench.
+    // GUT drives the lightweight repo-local test suite inside the hidden workbench.
     "gut": {
       "url": "git@github.com:bitwes/Gut.git",
       "checkout": "main",
