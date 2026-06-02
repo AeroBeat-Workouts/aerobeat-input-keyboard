@@ -8,6 +8,11 @@
       "checkout": "v0.1.0",
       "subfolder": "/"
     },
+    "aerobeat-tool-headless-manager": {
+      "url": "../../aerobeat-tool-headless-manager",
+      "subfolder": "/",
+      "source": "symlink"
+    },
     // GUT drives the lightweight repo-local test suite inside the hidden workbench.
     "gut": {
       "url": "git@github.com:bitwes/Gut.git",
