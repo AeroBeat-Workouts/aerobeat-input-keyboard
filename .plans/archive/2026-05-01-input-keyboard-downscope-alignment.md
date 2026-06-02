@@ -68,9 +68,20 @@ The locked docs truth from `aerobeat-docs` is that AeroBeat v1 gameplay input is
 **Reference Check:** Satisfied `REF-03` and broader `REF-02` downscope truth: keyboard remains future support only, while current official AeroBeat v1 gameplay input is camera-first. No deliberate deviations.
 
 **Commits:**
-- `Downscope keyboard input repo truth` (landed on `main`)
+- `448bb4e` - `Downscope keyboard input repo truth`
 
 **Lessons Learned:** Even the small future-input repos benefit from a tiny automated truth assertion. The hidden testbed can drift if addons are not restored, so validation should explicitly include the `godotenv addons install` step before running GUT.
+
+**QA Findings (2026-05-01):**
+- ✅ Independently verified `README.md`, `plugin.cfg`, `.testbed/addons.jsonc`, `.testbed/tests/test_example.gd`, and `.testbed/tests/test_example.gd.uid` against `REF-02` / `REF-03`.
+- ✅ Repo truth now consistently frames keyboard as future/deprioritized debug/tooling/later-exploration support, not current official v1 gameplay input.
+- ✅ Re-ran validation from a clean repo state using:
+  - `cd .testbed && godotenv addons install`
+  - `godot --headless --path .testbed --import`
+  - `godot --headless --path .testbed --script addons/gut/gut_cmdln.gd -gdir=res://tests -ginclude_subdirs -gexit`
+- ✅ Validation passed: addon restore succeeded, Godot import succeeded, and GUT reported `2/2 passed` with `5` asserts.
+- ℹ️ Godot emitted `WARNING: ObjectDB instances leaked at exit` after the passing GUT run, but the command still exited `0`; no repo-local functional failure was observed in this QA pass.
+- ℹ️ Attempting Beads QA handoff commands hit a repo identity mismatch (`metadata.json project_id` vs database `_project_id`), so no `bd update` was forced.
 
 **QA Handoff Notes:**
 - Verify README and `plugin.cfg` no longer imply keyboard is official v1 gameplay input.
@@ -80,6 +91,19 @@ The locked docs truth from `aerobeat-docs` is that AeroBeat v1 gameplay input is
   - `godot --headless --path .testbed --import`
   - `godot --headless --path .testbed --script addons/gut/gut_cmdln.gd -gdir=res://tests -ginclude_subdirs -gexit`
 - Expect a generated `.testbed/tests/test_example.gd.uid` file from Godot import.
+
+**Auditor Findings (2026-05-01):**
+- ✅ Re-checked `README.md`, `plugin.cfg`, `.testbed/addons.jsonc`, and `.testbed/tests/test_example.gd` against `REF-02` / `REF-03`; repo truth consistently matches the docs position that keyboard input is future/deprioritized support, not official v1 gameplay input.
+- ✅ Independently re-ran validation with:
+  - `cd .testbed && godotenv addons install`
+  - `godot --headless --path .testbed --import`
+  - `godot --headless --path .testbed --script addons/gut/gut_cmdln.gd -gdir=res://tests -ginclude_subdirs -gexit`
+- ✅ Validation passed again: addon restore succeeded, import succeeded, and GUT reported `2/2 passed` with `5` asserts.
+- ✅ `.testbed/tests/test_example.gd.uid` is canonical for this repo state: it is already tracked in Git, remained stable across the audit rerun, and did not introduce extra repo dirt. It should stay committed.
+- ✅ Commit `448bb4e` is present on both `main` and `origin/main`.
+- ✅ Repo cleanliness after audit validation is good; the only remaining modified file is this plan document recording the audit outcome.
+- ℹ️ Godot still emits `WARNING: ObjectDB instances leaked at exit` after the passing GUT run, but the process exits `0` and no repo-local failure was observed.
+- ✅ Audit decision: bead `oc-37h` passes and can be closed.
 
 ---
 
